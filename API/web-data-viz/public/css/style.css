@@ -114,6 +114,15 @@
    
    /*personagens*/
 
+   h2{
+    width: 40%;
+    font-family: "lora", serif;
+   font-style: oblique;
+     margin: 15% 0%;
+     justify-self: center;
+
+      
+   }
 
     .painel{
         border-top: 4px solid #FF6600 ;
@@ -127,37 +136,22 @@
     
     }
 
-    .painel2{
-      width:79%;
-      margin: 190% -50%;
-      display:flex;
-      position: absolute;
-     
-    
-    }
   
-      .painel3{
-      width:79%;
-      margin: 64% -89%;
-      display:flex;
-      position: absolute;
-      justify-content: center;
-    
-    }
+  
 
     .painel .carde{
       background-color: #FF6600;
       width: 280px;
       height: 450px;
       border-radius: 5px;
-      margin: 5% 12% 0% -10%;
+      margin: 10% 12% 10% -32%;
     }
      .painel .carde1{
       background-color: #FF6600;
       width: 280px;
       height: 450px;
       border-radius: 5px;
-       margin: 5% -10%;
+       margin: 10% -10%;
 
     }
     .painel .carde2{
@@ -165,7 +159,7 @@
       width: 280px;
       height: 450px;
       border-radius: 5px;
-       margin: 5% 12%;
+       margin: 10% 12%;
 
     }
     .painel .carde3{
@@ -173,73 +167,32 @@
       width: 280px;
       height: 450px;
       border-radius: 5px;
-       margin: 5% -10%;
+       margin: 10% -10%;
 
     }
 
-    .painel2 .carde{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-      margin: 5% 120% 90% 10%;
-    }
-     .painel2 .carde1{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-       margin: 5% -10%;
 
-    }
-    .painel2 .carde2{
-      background-color: #FF6600;
-      width: 2800px;
-      height: 450px;
-      border-radius: 5px;
-       margin: 5% 12%;
 
-    }
-    .painel2 .carde3{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-       margin: 50% 2%;
+    /*contexto*/
 
-    }
-.painel3 .carde{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-      margin: 5% 12% 0% -10%;
-    }
-     .painel3 .carde1{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-       margin: 5% -10%;
 
-    }
-    .painel3 .carde2{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-       margin: 5% 12%;
-
-    }
-    .painel3 .carde3{
-      background-color: #FF6600;
-      width: 280px;
-      height: 450px;
-      border-radius: 5px;
-       margin: 5% -10%;
-
+    .texto{
+      width: 79%;
+      padding: 2%;
+      margin:  8% 20% 0% -36%;
+      background:  #2b2929;
+      position: absolute;
+      border: solid #e87400;
+      border-radius: 8px
     }
 
+    .contex{
+      margin: 1250% 510% -100% -36% ;
+    }
+
+    /*Dashboard*/
+
+    
 
 
 
