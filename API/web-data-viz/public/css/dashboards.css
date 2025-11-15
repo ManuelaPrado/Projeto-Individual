@@ -1,13 +1,18 @@
 /* pagina mural */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+     font-family: "lora", serif;
+    background-color: #000000;
 }
-
+/*
 .label-captura {
   display: flex;
   justify-content: center;
@@ -108,11 +113,12 @@ body {
 .div-buttons>* {
   margin-left: 30px;
 }
+*/
 
 /* pagina graficos */
 
 .dash-header {
-  background-color: #212124;
+  background-color: #000000;
 }
 
 .dash {
@@ -120,7 +126,7 @@ body {
   position: relative;
   top: 0;
   left: 20%;
-  background-color: #161618;
+  background-color: #000000;
   height: 100vh;
   overflow: auto;
 }
@@ -132,7 +138,7 @@ body {
   width: 70%;
   margin: auto;
   margin-top: 10px;
-  background-color: #212124;
+  background-color: #000000;
 }
 
 .area-parametros-alerta .titulo-legenda {
@@ -206,7 +212,7 @@ body {
   /* text-align: center; */
   height: 180px;
   /* justify-content: right; */
-  background-color: #212124;
+  background-color: #000000;
   font-size: 20px;
 }
 
@@ -348,15 +354,15 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-right: 3px solid #32b9cd;
-  background-color: #212124;
+  border-right: 3px solid #ff7043;
+  background-color: #000000;
 }
 
 .dash-right {
   display: flex;
   width: 70%;
   height: fit-content;
-  background-color: #161618;
+  background-color: #000000;
   position: relative;
   top: 0;
   left: 25%;
@@ -375,7 +381,7 @@ canvas {
 }
 
 .hello h3 {
-  color: #e3b062;
+  color: #fc9250;
   font-weight: 300;
   font-size: 1.2rem;
 }
@@ -385,44 +391,44 @@ canvas {
 }
 
 .btn-nav {
-  width: 40%;
+  width: 60%;
   color: white;
-  background-color: #e6005a;
+  background-color: #fb521e;
+  border:3PX solid #ffffff;
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
 }
 
 .btn-nav-white {
-  width: 40%;
-  background-color: white;
-  border: 3px solid #e6005a;
+  width: 60%;
+  background-color: #ffffff;
+  border: 3px solid #ff7043;
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
 }
 
 .btn-nav-white h3 {
-  color: #e6005a;
+  color: #ff7043;
   padding: 0;
   margin: 0;
 }
 
+/*
 .btn-nav h3,
 .btn-logout h3 {
   margin: 0;
   padding: 0;
 }
-
+*/
 .btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
-  background-color: #32b9cd;
+  width: 25%;
+  background-color: #ff7043;
   color: white;
-  border-radius: 10px;
+  border-radius: 20px;
   text-align: center;
   padding: 10px 15px;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
