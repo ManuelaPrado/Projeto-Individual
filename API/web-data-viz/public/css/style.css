@@ -348,7 +348,7 @@ footer {
     margin-bottom: 7%;
     color: #fb521e;
     font-family: "lora", serif;
-    text-align: start;
+   
 }
 
 .aboutText2 {
@@ -359,7 +359,7 @@ footer {
     justify-content: start;
     color: #ffffff;
     font-family: "lora", serif;
-    text-align: justify;
+    text-align: center;
     margin-bottom: 30px;
     margin-top: 50px;
 }
@@ -389,10 +389,10 @@ footer {
 }
 
 .imagemheroC {
-    width: 100%;
+    width:140%;
     height: 92vh;
     margin-top: -167.5px;
-    border-bottom: solid 4px #fb521e;
+    border-bottom: solid 5px #fb521e;
 }
 
     .containerC{
@@ -414,7 +414,7 @@ footer {
 
     .cardC{
     display: inline-block;
-    justify-content: center;
+    margin-top: 750px;
     align-items: center;
     width: 500px;
     height: 420px;
