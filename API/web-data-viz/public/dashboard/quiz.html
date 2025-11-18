@@ -57,6 +57,116 @@
 
         </div>
 
+        <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .pergunta {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #008CFF;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #006fd3;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Quiz de Conhecimentos</h2>
+
+        <form id="quizForm">
+
+            <div class="pergunta">
+                <h4>1. Qual é a capital do Brasil?</h4>
+                <input type="radio" name="q1" value="errado"> São Paulo<br>
+                <input type="radio" name="q1" value="certo"> Brasília<br>
+                <input type="radio" name="q1" value="errado"> Rio de Janeiro<br>
+            </div>
+
+            <div class="pergunta">
+                <h4>2. Quanto é 5 + 7?</h4>
+                <input type="radio" name="q2" value="errado"> 10<br>
+                <input type="radio" name="q2" value="certo"> 12<br>
+                <input type="radio" name="q2" value="errado"> 14<br>
+            </div>
+
+            <div class="pergunta">
+                <h4>3. Quem criou a linguagem JavaScript?</h4>
+                <input type="radio" name="q3" value="errado"> Bill Gates<br>
+                <input type="radio" name="q3" value="certo"> Brendan Eich<br>
+                <input type="radio" name="q3" value="errado"> Elon Musk<br>
+            </div>
+
+            <button class="btn" type="button" onclick="corrigirQuiz()">Enviar Respostas</button>
+
+        </form>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function corrigirQuiz() {
+            let pontos = 0;
+
+            const respostas = document.querySelectorAll("input[type=radio]:checked");
+
+            respostas.forEach(resposta => {
+                if (resposta.value === "certo") {
+                    pontos++;
+                }
+            });
+
+            document.getElementById("resultado").innerHTML = 
+                `Você acertou <strong>${pontos}</strong> de <strong>3</strong> perguntas!`;
+        }
+    </script>
+
+</body>
+</html>
+
+
      <!--   <section class="car">
       <div class="cartao">
         <p>Pergunta com maior indece de erro</p>

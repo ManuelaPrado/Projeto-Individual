@@ -5,33 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonho em Jogo - Login</title>
     <link rel="icon" href="imagem/sigla.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
 
 </head>
 <body>
 
-   <header>
-        <div class="logo">
-            <img src="imagem/logo.png" alt="">
-        </div>
-
-        <div class="nav-bar">
-            <div class="nav-item">
-                <a href="./index.html">Home</a>
-            </div>
-            <div class="nav-item">
-                <a href="Historia.html">Historia</a>
-            </div>
-            <div class="nav-item">
-                <a href="cadastro.html"> Cadastro </a>
-            </div>
-            
-            </div>
-        </div>
-        <div class="nav-button">
-            <button onclick="window.location.href='./login.html'" class="buttons">Login</button>
-        </div>
-    </header>
+     <div class="header">
+    <div class="container">
+      <img class="bubu" src="imagem/logo.png" alt="">
+      <ul class="navbar">
+        <li class="porvez">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="porvez">
+          <a href="historia.html">Historia</a>
+        </li>
+        <li class=" porvez agora">
+          <a href="cadastro.html">Cadastro</a>
+        </li>   
+        <li >
+        <button onclick="window.location.href='./login.html'" class="buttons">Login</button>
+        </li>
+      </ul>
+    </div>
+  </div>
 
 
 
@@ -40,27 +37,35 @@
             alt="">
     </section>
 
-
   <div class="login">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
         <span id="mensagem_erro"></span>
       </div>
     </div>
-    <div class="containerL">
-      <div class="cardL card-cadastro">
-        <h2 class="bemvindo">Entrar</h2>
+    <div class="container">
+      <div class="card card-cadastro">
+        <h2>Entrar</h2>
         <div class="formulario">
-    
+   
           <div class="campo">
-            <input id="email_input" type="text" placeholder="Email"/>
+            <span>Nome:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
-           <div class="campo">
-            <input id="senha_input" type="password" placeholder="Senha"/>
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="senha_input" type="password" placeholder="******" />
           </div>
-        
-          <button class="botao" onclick="cadastrar()">Entrar</button>
+          <button class="botao" onclick="entrar()">Entrar</button>
         </div>
+        <div id="div_aguardar" class="loading-div">
+          <img src="imagem/cadastro.jpg" />
+        </div>
+
+        <div id="div_erros_login"></div>
+      </div>
+    </div>
+  </div>
       <!--  <div id="div_aguardar" class="loading-div">
           <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>

@@ -1,79 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonho em Jogo - Cadastro</title>
-    <link rel="icon" href="imagem/sigla.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sonho em jogo - Login</title>
+
   <script src="./js/sessao.js"></script>
+
+  <link rel="stylesheet" href="./css/login.css" />
+  <link rel="icon" href="imagem/sigla.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
-<body>
 
-   <header>
-        <div class="logo">
-            <img src="imagem/logo.png" alt="">
-        </div>
-
-        <div class="nav-bar">
-            <div class="nav-item">
-                <a href="./index.html">Home</a>
-            </div>
-            <div class="nav-item">
-                <a href="historia.html">Historia</a>
-            </div>
-            <div class="nav-item">
-                <a href="cadastro.html"> Cadastro </a>
-            </div>
-            
-            </div>
-        </div>
-        <div class="nav-button">
-            <button onclick="window.location.href='./login.html'" class="buttons">Login</button>
-        </div>
-    </header>
-
-
-
- <section class="heroC">
-        <img class="imagemheroC" src="imagem/cadastro.jpg"
-            alt="">
-    </section>
-
-
-  
+<body onload="listar()">
+  <!--header inicio-->
+  <div class="header">
+    <div class="container">
+      <img class="bubu" src="imagem/logo.png" alt="">
+      <ul class="navbar">
+        <li class="porvez">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="porvez">
+          <a href="historia.html">Historia</a>
+        </li>
+        <li class=" porvez agora">
+          <a href="cadastro.html">Cadastro</a>
+        </li>   
+        <li >
+        <button onclick="window.location.href='./login.html'" class="buttons">Login</button>
+        </li>
+      </ul>
     </div>
-    <div class="containerC">
-      <div class="cardC">
-        <h2 class="bemvindo">Crie sua conta</h2>
+  </div>
+  <!--header fim-->
+
+  <div class="login">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card card-cadastro">
+        <h2>Crei sua conta</h2>
         <div class="formulario">
-          <div class="campo">   
-            <input id="nome_input" type="text" placeholder="Nome"/>
-             <div id="msg_erro"></div>
+   
+          <div class="campo">
+            <span>Nome:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
           <div class="campo">
-            <input id="email_input" type="text" placeholder="Email"/>
-            <div id="msg_erro"></div>
+            <span>E-mail:</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
           </div>
-           <div class="campo">
-            <input id="senha_input" type="password" placeholder="Senha"/>
-          <div id="msg_erro"></div>
+           
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="senha_input" type="password" placeholder="******" />
           </div>
-          <div class="campo1"><br>
-            <input id="confirmacao_senha_input" type="password" placeholder="Confime sua senha" />
-          <div id="msg_erro"></div>
-        </div>
+          <div class="campo">
+            <span>Confirmação da Senha:</span>
+            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
-      <!--  <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+        <div id="div_aguardar" class="loading-div">
+          <img src="imagem/cadastro.jpg" />
         </div>
-      -->
 
         <div id="div_erros_login"></div>
       </div>
     </div>
-    </div>
+  </div>
+
+  <!--footer fim-->
 </body>
 
 </html>
@@ -88,131 +92,42 @@
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = iptNome.value;
-    var emailVar = iptEmail.value;
-    var senhaVar = iptSenha.value;
-    var confirmacaoSenhaVar = iptConfirme.value;
-
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" || 
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-    )
-
-
-      // Enviando o valor da nova input
-      fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          nomeServer: nomeVar,
-          emailServer: emailVar,
-          senhaServer: senhaVar,
-          
-
-        }),
-      })
-        .then(function (resposta) {
-          console.log("resposta: ", resposta);
-
-          if (resposta.ok) {
-            cardErro.style.display = "block";
-
-            mensagem_erro.innerHTML =
-              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-            setTimeout(() => {
-              window.location = "login.html";
-            }, "2000");
-
-            limparFormulario();
-            finalizarAguardar();
-          } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
-          }
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
-          finalizarAguardar();
-        });
-
-    return false;
-  }
-
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
-
-
-
-
-
-
-/*
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
-  function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var idEmpresaVincular
-
-    var erro = '';
-    msg_erro.innerHTML=''
+  
+    var erros=''
 
     // Verificando se há algum campo em branco
-    // Variáveis criadas para validação dos campos
-    
-    if (nomeVar == '')
-        erro += '* Este campo é obrigatório.';
-    if (emailVar == '')
-        erro += '* Este campo é obrigatório.';
-    if (senhaVar == '')
-        erro += '* Este campo é obrigatório.';
-    if (erro != '') {
-      aler("camposinvalidos")
-    }
-    else {
-        alert("Formulário enviado com sucesso!");
-        nomeVar.value = "";
-        emailVar.value = "";
-        senhaVar.value = "";
-    }
-}
+   if (nomeVar == "") erros +=" O nome é obrigatório.<br>";
+  if (emailVar == "") erros +=" O email é obrigatório.<br>";
+  if (senhaVar == "") erros +=" A senha é obrigatória. <br>";
+  if (confirmacaoSenhaVar == "") erros +=" A confirmação de senha é obrigatória.<br>";
+  if (senhaVar != confirmacaoSenhaVar) erros +=" As senhas não coincidem.<br>"; 
+      if (erros!=''){
+    cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        erros;
 
-   // }
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 2000);
+    }
+
+    // Verificando se o código de ativação é de alguma empresa cadastrada
+    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+        idEmpresaVincular = listaEmpresasCadastradas[i].id
+        console.log("Código de ativação válido.");
+        break;
+      } else {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        finalizarAguardar();
+      }
+    }
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -225,16 +140,20 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
+        cpfServer: cpfvar,
         senhaServer: senhaVar,
+        idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            alert=(
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login..."
-        );
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
@@ -251,8 +170,8 @@
       });
 
     return false;
-  //}
-/*
+  }
+
   // Listando empresas cadastradas 
   function listar() {
     fetch("/empresas/listar", {
@@ -276,5 +195,4 @@
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
-  */
 </script>
