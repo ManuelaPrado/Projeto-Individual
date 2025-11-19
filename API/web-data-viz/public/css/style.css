@@ -6,14 +6,6 @@
       box-sizing: border-box;
     }
 
-        ::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color:#fb521e;
-    border-radius: 10px;
-}
 /*Home*/
 body {
     margin: 0px;
@@ -88,10 +80,6 @@ body {
 .header .porvez:hover a{
     color: #fff;
       text-shadow: 0 0 10px #FF6600;
-}
-
-.agora {
-  font-weight: 800;
 }
 
 .navbar {
@@ -229,7 +217,7 @@ body {
 }
 .benefith2
 {
-  display: block;
+    display: block;
     font-size: 30px;
     margin-bottom: 20px;
     color: #fb521e;
@@ -275,7 +263,6 @@ footer {
     padding: 40px 80px;
     font-family: "lora", serif;
     
-   
 }
 
 .footer-container {

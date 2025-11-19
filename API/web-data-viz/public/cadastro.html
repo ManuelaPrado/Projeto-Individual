@@ -68,9 +68,9 @@
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="imagem/cadastro.jpg" />
-        </div>
+       <!-- <div id="div_aguardar" class="loading-div">
+          <img src="" />
+        </div> -->
 
         <div id="div_erros_login"></div>
       </div>
@@ -88,7 +88,6 @@
   let listaEmpresasCadastradas = [];
 
   function cadastrar() {
-    // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
@@ -112,12 +111,14 @@
 
       finalizarAguardar();
       return false;
+     
     } else {
+       window.location.href = 'dashboard/dashboard.html'
       setInterval(sumirMensagem, 2000);
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+    /*for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
       if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
         idEmpresaVincular = listaEmpresasCadastradas[i].id
         console.log("Código de ativação válido.");
@@ -127,7 +128,7 @@
         mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
         finalizarAguardar();
       }
-    }
+    }*/
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -140,9 +141,7 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
-        cpfServer: cpfvar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
@@ -173,7 +172,7 @@
   }
 
   // Listando empresas cadastradas 
-  function listar() {
+  /*function listar() {
     fetch("/empresas/listar", {
       method: "GET",
     })
@@ -194,5 +193,5 @@
 
   function sumirMensagem() {
     cardErro.style.display = "none";
-  }
+  }*/
 </script>
