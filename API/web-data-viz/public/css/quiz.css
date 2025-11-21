@@ -46,7 +46,6 @@ html, body {
   padding: 20px 8px;
   border-right: 3px solid var(--accent);
   background-color: #000000;
-  gap: 8px;
   z-index: 10;
 }
 
@@ -121,11 +120,37 @@ html, body {
 }
 
 /* ---------- Utilitários e tokens ---------- */
-.flex-colunar { display: flex; flex-direction: column; gap: 8px; }
-.width-fit-content { width: fit-content; }
-.padding-8 { padding: 8px; }
+.flex-colunar { 
+  display: flex; 
+  flex-direction: column;
+  text-align: center;
+}
+
+.width-fit-content {
+   width: fit-content;
+   }
+.padding-8 { 
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#btnSubmeter{
+  display: flex;
+  margin:  -2.8% -1%;
+}
+
+
+#btnProx{
+  margin: -53px 50%;
+}
+
+#btnTentarNovamente{
+  margin: 0 25%;
+  width: 200% ;
+}
+
 .border-primary { border: 3px solid var(--primary-brand-color); }
-.border-secondary { border: 3px solid #0762C8; }
 .text-bold { font-weight: bold; }
 
 .text-success-with-bg {
@@ -152,7 +177,7 @@ html, body {
 #pontuacaoEJogo {
   margin: 80px 40px;
   display: flex;
-  gap: 24px;
+
   flex-wrap: wrap;
   align-items: flex-start;
 }
@@ -172,26 +197,19 @@ html, body {
   box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
-/* área de pontuação e jogo */
-#pontuacao {
-  display: none; /* aparece quando inicia o quiz */
-  gap: 16px;
-  align-items: flex-start;
-}
 
-#pontuacao .flex-colunar {
-  gap: 8px;
-}
 
 /* cartão do jogo */
 #jogo {
   display: none; /* aparece ao iniciar */
   width: 700px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background:#34343461;
   border-radius: 10px;
   padding: 18px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.6);
   border: 2px solid rgba(255,255,255,0.03);
+  margin-left: 40%;
+  margin-top: -1%;
 }
 
 /* info da questão */
@@ -200,29 +218,23 @@ html, body {
 #spanQuestaoExibida { font-weight: 700; font-size: 1.1rem; }
 
 /* alternativas */
-#opcoes { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
-#opcoes span { display: flex; align-items: center; gap: 10px; }
+#opcoes {
+  display: flex; 
+  flex-direction: column;  
+  margin: 12px 0; }
+#opcoes span { 
+  display: flex; 
+  align-items: center;  }
 
 /* esconder o input radio padrão e estilizar o label */
-#opcoes input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid #ddd;
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-}
+
 #opcoes input[type="radio"]:checked::after {
-  content: "";
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--accent);
-  margin: 3px;
+ 
 }
 
 /* labels como botões */
@@ -230,34 +242,51 @@ html, body {
   display: inline-block;
   padding: 10px 12px;
   border-radius: 8px;
-  min-width: 420px;
+  min-width: 620px;
   cursor: pointer;
-  transition: background .15s ease, transform .08s ease;
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.03);
 }
-#opcoes label.option:hover { transform: translateY(-2px); }
+#opcoes label.option:hover { transform: translate(-2px); }
 
 /* botões de ação */
-#botoes { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+#botoes { 
+  display: flex; 
+  margin-top: 12px; 
+  flex-wrap: wrap; }
 #botoes button {
-  padding: 10px 14px;
+  display: flex;
+  width: 50%;
+  padding: 10px 102px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   background: var(--accent);
   color: white;
-  font-weight: 700;
+
+}
+
+#botoes #prox button {
+  display: flex;
+  width: 50%;
+  padding: 10px 69px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+
 }
 #botoes button[disabled] {
-  opacity: 0.5;
   cursor: not-allowed;
+}
+
+.option{
+  margin: 5px;
 }
 
 /* estado final */
 #pontuacaoFinalJogo { margin-top: 8px; display: flex; gap: 12px; align-items: center; }
 
-/* utilidades pequenas */
-.hidden { display: none !important; }
-.center { display:flex; justify-content:center; align-items:center; }
+
 
