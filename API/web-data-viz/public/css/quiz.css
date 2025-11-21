@@ -41,9 +41,10 @@ html, body {
   width: 20%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 8px;
+  border-radius: 90px;
   border-right: 3px solid var(--accent);
   background-color: #000000;
   z-index: 10;
@@ -67,7 +68,7 @@ html, body {
 /* ---------- Menu lateral - itens ---------- */
 .header-left a {
   text-decoration: none;
-  color: var(--text);
+    color: #ff7043;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -81,42 +82,58 @@ html, body {
 }
 
 .hello h3 {
+  margin: 12px;
   color: #fc9250;
   font-weight: 300;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 }
 
 /* botões laterais */
 .btn-nav, .btn-nav-white, .btn-logout {
-  width: 70%;
+  width: 60%;
+  height: 6.5%;
   border-radius: 8px;
   text-align: center;
-  padding: 10px 12px;
+  padding: 5px 12px;
   cursor: pointer;
 }
 
-.btn-nav {
-  color: #ffffff;
-  background-color: #fb521e;
-  border: 2px solid #ffffff;
-}
-
 .btn-nav-white {
+  width: 60%;
+  color: #ff7043;
   background-color: #ffffff;
-  border: 2px solid var(--accent);
+  border: 3px solid #ff7043;
+  border-radius: 5px;
+  margin: 20px;
+  text-align: center;
+  padding: 2% 5%;
 }
 
-.btn-nav-white h3 {
-  color: var(--accent);
+.btn-nav {
+  width: 60%;
+  background-color: #fb521e;
+  border:3PX solid #ffffff;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2% 5%;
+  margin: 35px;
+}
+
+.btn-nav h3 {
+  color: white;
+  padding: 0;
   margin: 0;
 }
-
 .btn-logout {
-  width: 60%;
+  width: 30%;
+  height: 7.5%;
   background-color: var(--accent);
+ margin-bottom: 60px;
   color: white;
+   text-align: center;
   border-radius: 20px;
-  padding: 8px 12px;
+  padding: 10px 0px;
+  cursor: pointer;
 }
 
 /* ---------- Utilitários e tokens ---------- */
