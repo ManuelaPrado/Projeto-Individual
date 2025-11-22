@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+<head>  
+     <link rel="icon" href="../imagem/sigla.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonho em jogo - Dashboards</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="icon" href="../imagem/sigla.png" type="image/x-icon">
+
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -47,7 +48,7 @@
 
             <div class="btn-nav">
 
-                <h3>Gráficos</h3>
+                <h3>Gráfico</h3>
 
             </div>
 
@@ -67,10 +68,19 @@
         <h2 class="quatro"></h2>
       </div>
       <div class="cartao">
-        <p>Pontualção </p>
+        <p>Pontualção</p>
         <h2 class="quatro"></h2>
       </div>
     </section>
+
+     <h1 style="color: #ff7043; font-size: 50px; margin: 2%
+     5% -1% 55%; ">Grafico</h1>
+    <div style="display: flex;">
+        <div style="width: 87%; justify-content: center; background-color: white; margin: 2% 5% 0% 25%; border-radius: 40px; ">
+            <canvas id="sensorAnalogico"></canvas>
+        </div>
+       
+    </div>
 
         <div class="dash">
             <div id="alerta">
@@ -91,6 +101,45 @@
 </html>
 
 <script>
+
+   var sensorAnalogico = new Chart(document.getElementById('sensorAnalogico').getContext('2d'), {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: 'Respostas corretas',
+                    backgroundColor: 'green',
+                },
+                 {   label: 'Respostas erradas',
+                    backgroundColor: 'red',
+                }]
+            },
+            options: {
+            plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 15
+                    }
+                }
+            }
+        },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '()'
+                        },
+                        beginAtZero: true,
+                    },
+                },
+            }
+        });
+
+
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;

@@ -29,7 +29,7 @@
 
             <div class="btn-nav-white">
                 <a href="dashboard.html">
-                <h3>Gráficos</h3>
+                <h3>Gráfico</h3>
             </div>
         </a>
 
@@ -84,7 +84,7 @@
                 <div id="submeter">
                 <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button></div>
                  <div id="prox">
-                <button onclick="avancar()  " id="btnProx" disabled>Avançar para próxima questão</button></div>
+                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button></div>
                 <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
                   <div id="tentar">
                 <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
@@ -361,6 +361,8 @@ function submeter() {
     habilitarAlternativas(false);
 
     checarResposta();
+
+
 }
 
 // BLOQUEAR/DESBLOQUEAR RADIO
@@ -375,7 +377,7 @@ function habilitarAlternativas(enable) {
 function avancar() {
     btnProx.disabled = true;
     btnSubmeter.disabled = false;
-
+    numeroDaQuestaoAtual++
     desmarcarRadioButtons();
     limparCoresBackgroundOpcoes();
 
@@ -385,6 +387,7 @@ function avancar() {
     }
 
     preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+   
 }
 
 // DESMARCAR
