@@ -86,7 +86,6 @@
             return false;
         }
         else {
-          window.location.href = 'dashboard/dashboard.html'
             setInterval(sumirMensagem, 5000)
         }
 
@@ -113,6 +112,7 @@
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.idusuario;
 
                     setTimeout(function () {
                         window.location = "./dashboard/cards.html";

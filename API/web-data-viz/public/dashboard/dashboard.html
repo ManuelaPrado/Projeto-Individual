@@ -23,8 +23,6 @@
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
@@ -101,45 +99,23 @@
 </html>
 
 <script>
-
-     
-
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
 
-function carregarPercentuais() {
+    window.onload = exibirAquariosDoUsuario();
 
-    let idUsuario = sessionStorage.ID_USUARIO;
-
-    fetch(`/pontuacao/percentual/${idUsuario}`, { cache: "no-store" })
-        .then(res => res.json())
-        .then(dados => {
-            document.getElementById("cardAcertos").querySelector("h2").innerHTML =
-                dados.pctAcertos + "%";
-
-            document.getElementById("cardErros").querySelector("h2").innerHTML =
-                dados.pctErros + "%";
-        })
-        .catch(err => console.error("Erro ao buscar percentuais:", err));
-}
-
-
-    window.onload = function(){ exibirrespostasdousuario(); carregarPercentuais()
-    }
-        setInterval(carregarPercentuais, 5000);
-
-
-    function exibirrespostasdousuario() {
-        var resposta = JSON.parse(sessionStorage.idUsuario);
-        resposta.forEach(item => {
-            document.getElementById("btnquiz").innerHTML += `
-            <button class="btn-chart" onclick="exibirrespostas(${item.id})" id="btnquiz${item.id}">${item.descricao}</button>
+    function exibirAquariosDoUsuario() {
+        var aquarios = JSON.parse(sessionStorage.AQUARIOS);
+        aquarios.forEach(item => {
+            document.getElementById("btnAquario").innerHTML += `
+            <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
             `
 
             document.getElementById("graficos").innerHTML += `
                 <div id="grafico${item.id}" class="display-none">
                     <h3 class="tituloGraficos">
-                        <span id="titulo${item.id}">${item.descricao}</span>
+                        <span id="tituloAquario${item.id}">${item.descricao}</span>
                     </h3>
                     <div class="graph">
                         <canvas id="myChartCanvas${item.id}"></canvas>
@@ -153,23 +129,23 @@ function carregarPercentuais() {
             obterDadosGrafico(item.id)
         });
 
-        if (resposta.length > 0) {
-            exibirrespostas(resposta[0].id)
+        if (aquarios.length > 0) {
+            exibirAquario(aquarios[0].id)
         }
     }
 
-    function alterarTitulo(idresposta) {
-        var titulo = document.getElementById(`titulo${idresposta}`)
-        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idresposta).descricao;
-        titulo.innerHTML = "Últimas medidas das respostas do <span style='color: #e6005a'>" + descricao + "</span>"
+    function alterarTitulo(idAquario) {
+        var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
+        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
+        tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
     }
 
-    function exibirrespostas(idresposta) {
+    function exibirAquario(idAquario) {
         let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
 
         for (i = 0; i < todosOsGraficos.length; i++) {
             // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idresposta) {
+            if (todosOsGraficos[i].id != idAquario) {
                 let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
                 if (elementoAtual.classList.contains("display-block")) {
                     elementoAtual.classList.remove("display-block")
@@ -177,7 +153,7 @@ function carregarPercentuais() {
                 elementoAtual.classList.add("display-none")
 
                 // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnquiz${todosOsGraficos[i].id}`)
+                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
                 if (btnAtual.classList.contains("btn-pink")) {
                     btnAtual.classList.remove("btn-pink")
                 }
@@ -186,12 +162,12 @@ function carregarPercentuais() {
         }
 
         // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idresposta}`)
+        let graficoExibir = document.getElementById(`grafico${idAquario}`)
         graficoExibir.classList.remove("display-none")
         graficoExibir.classList.add("display-block")
 
         // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnquiz${idresposta}`)
+        let btnExibir = document.getElementById(`btnAquario${idAquario}`)
         btnExibir.classList.remove("btn-white")
         btnExibir.classList.add("btn-pink")
     }
@@ -207,21 +183,21 @@ function carregarPercentuais() {
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idresposta) {
+    function obterDadosGrafico(idAquario) {
 
-        alterarTitulo(idresposta)
+        alterarTitulo(idAquario)
 
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${idresposta}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, idresposta);
+                    plotarGrafico(resposta, idAquario);
 
                 });
             } else {
@@ -236,7 +212,7 @@ function carregarPercentuais() {
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idresposta) {
+    function plotarGrafico(resposta, idAquario) {
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -247,7 +223,7 @@ function carregarPercentuais() {
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Respostas',
+                label: 'Umidade',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -284,17 +260,17 @@ function carregarPercentuais() {
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'bar',
+            type: 'line',
             data: dados,
         };
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idresposta}`),
+            document.getElementById(`myChartCanvas${idAquario}`),
             config
         );
 
-        setTimeout(() => atualizarGrafico(idresposta, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
     }
 
 
@@ -303,21 +279,21 @@ function carregarPercentuais() {
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idresposta, dados, myChart) {
+    function atualizarGrafico(idAquario, dados, myChart) {
 
 
 
-        fetch(`/medidas/tempo-real/${idresposta}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    obterdados(idresposta);
-                    // alertar(novoRegistro, idresposta);
+                    obterdados(idAquario);
+                    // alertar(novoRegistro, idAquario);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
 
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idresposta}`)
+                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
                     avisoCaptura.innerHTML = ""
 
 
@@ -345,12 +321,12 @@ function carregarPercentuais() {
                     }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idresposta, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idresposta, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
