@@ -59,17 +59,17 @@
         </div>
 
            <section class="car">
-      <div class="cartao">
+      <div class="cartao"  id="cardErros">
         <p>Porcentual de erro</p>
         <h2></h2>
       </div>
       <div class="cartao">
         <p>Porcentual de acertos</p>
-        <h2 class="quatro"></h2>
+        <h2 class="quatro"  id="cardAcertos">0</h2>
       </div>
       <div class="cartao">
         <p>Pontualção</p>
-        <h2 class="quatro"></h2>
+        <h2 class="quatro">0</h2>
       </div>
     </section>
 
@@ -102,52 +102,35 @@
 
 <script>
 
-   var sensorAnalogico = new Chart(document.getElementById('sensorAnalogico').getContext('2d'), {
-            type: 'bar',
-            data: {
-                datasets: [{
-                    label: 'Respostas corretas',
-                    backgroundColor: 'green',
-                },
-                 {   label: 'Respostas erradas',
-                    backgroundColor: 'red',
-                }]
-            },
-            options: {
-            plugins: {
-            legend: {
-                labels: {
-                    font: {
-                        size: 15
-                    }
-                }
-            }
-        },
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: '()'
-                        },
-                        beginAtZero: true,
-                    },
-                },
-            }
-        });
+     
 
-
-
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
 
-    window.onload = exibirrespostasdousuario();
+function carregarPercentuais() {
+
+    let idUsuario = sessionStorage.ID_USUARIO;
+
+    fetch(`/pontuacao/percentual/${idUsuario}`, { cache: "no-store" })
+        .then(res => res.json())
+        .then(dados => {
+            document.getElementById("cardAcertos").querySelector("h2").innerHTML =
+                dados.pctAcertos + "%";
+
+            document.getElementById("cardErros").querySelector("h2").innerHTML =
+                dados.pctErros + "%";
+        })
+        .catch(err => console.error("Erro ao buscar percentuais:", err));
+}
+
+
+    window.onload = function(){ exibirrespostasdousuario(); carregarPercentuais()
+    }
+        setInterval(carregarPercentuais, 5000);
+
 
     function exibirrespostasdousuario() {
-        var resposta = JSON.parse(sessionStorage.AQUARIOS);
+        var resposta = JSON.parse(sessionStorage.idUsuario);
         resposta.forEach(item => {
             document.getElementById("btnquiz").innerHTML += `
             <button class="btn-chart" onclick="exibirrespostas(${item.id})" id="btnquiz${item.id}">${item.descricao}</button>
@@ -301,7 +284,7 @@
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'line',
+            type: 'bar',
             data: dados,
         };
 

@@ -162,11 +162,6 @@ html, body {
   margin: -53px 50%;
 }
 
-#btnTentarNovamente{
-  margin: 0 25%;
-  width: 200% ;
-}
-
 .border-primary { border: 3px solid var(--primary-brand-color); }
 .text-bold { font-weight: bold; }
 
@@ -275,6 +270,23 @@ html, body {
   display: flex;
   width: 50%;
   padding: 10px 102px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+
+}
+
+#botoe { 
+  display: flex; 
+  margin-top: 12px; 
+  
+  flex-wrap: wrap; }
+#botoe button {
+  display: flex;
+  width: 100%;
+  padding: 10px 40%;
   border-radius: 8px;
   border: none;
   cursor: pointer;

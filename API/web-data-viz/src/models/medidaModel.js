@@ -1,35 +1,35 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function respostaPergunta(idusuario, acertou) {
 
     var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+    u.nome,
+    SUM(p.acertou) AS acertos,
+    COUNT(*) - SUM(p.acertou) AS erros,
+	count(*) as total
+FROM pontuacao p
+JOIN usuario u ON u.idusuario = p.id_usuario
+GROUP BY u.idusuario, u.nome;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function respostaEmTempoReal(idusuario) {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+    var instrucaoSql = `
+select data_resposta as tempo
+from pontuacao p 
+join usuario u 
+on u.idusuario = p.id_usuario
+GROUP BY u.idusuario, data_resposta;
+   `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    respostaPergunta,
+    respostaEmTempoReal
 }

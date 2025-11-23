@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonho em jogo - Quiz</title>
-    <link rel="stylesheet" href="./../css/quiz.css">
+    <link rel="stylesheet" href="../css/quiz.css">
 </head>
 
 
@@ -86,9 +86,7 @@
                  <div id="prox">
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button></div>
                 <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-                  <div id="tentar">
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
-            </div></div>
+</div>
 
         </div>
     </div>
@@ -119,7 +117,7 @@ const listaDeQuestoes1 = [
         alternativaA: "Para impressionar um amigo",
         alternativaB: "Porque causa do Pequeno Gigante",
         alternativaC: "O Porque era obrigado na escola",
-        alternativaD: "Porque  ",
+        alternativaD: "Por hobbby ",
         alternativaCorreta: "alternativaB"
     },
      {
@@ -280,9 +278,11 @@ let certas = 0;
 let erradas = 0;
 let quantidadeDeQuestoes = 0;
 
+let respostas = [];
+
+
 // ESCONDER ÁREA DO QUIZ AO CARREGAR
 function onloadEsconder() {
-    pontuacao.style.display = "none";
     jogo.style.display = "none";
 }
 
@@ -329,7 +329,6 @@ function iniciarQuiz() {
 
     btnSubmeter.disabled = false;
     btnProx.disabled = true;
-    btnTentarNovamente.disabled = true;
 }
 
 // CARREGAR PERGUNTA NA TELA
@@ -382,7 +381,20 @@ function avancar() {
     limparCoresBackgroundOpcoes();
 
     if (numeroDaQuestaoAtual >= quantidadeDeQuestoes) {
-        finalizarJogo();
+       
+      
+           jogo.innerHTML = `
+                <div id="botoe" class="flex-colunar padding-8">
+                    <h2>Questionário Concluído</h2>
+                    <div id="tentar" >
+                        <button onclick="window.location.href='./quiz.html'">Tentar novamente</button>
+                          
+                    </div>
+                </div>
+            `;
+         
+ enviarPontuacao() 
+
         return;
     }
 
@@ -419,41 +431,46 @@ function checarResposta() {
         if (option.checked && option.value !== correta) {
             document.getElementById(labelID).classList.add("text-danger-with-bg");
             erradas++;
-            spanErradas.innerHTML = erradas;
+            respostas.push(0)
         }
 
         if (option.checked && option.value === correta) {
-            certas++;
+            certas++
+            respostas.push(1)
             pontuacaoFinal++;
-            spanCertas.innerHTML = certas;
         }
-    });
 
-    numeroDaQuestaoAtual++;
+        console.log(respostas);
+        
+    });
 }
+
 
 // FINALIZA O QUIZ
-function finalizarJogo() {
-    btnProx.disabled = true;
-    btnSubmeter.disabled = true;
-    btnTentarNovamente.disabled = false;
 
-    const porcentagem = pontuacaoFinal / quantidadeDeQuestoes;
-
-    let msg = "";
-    if (porcentagem <= 0.3) msg = "Parece que você não estudou...";
-    else if (porcentagem < 0.9) msg = "Pode melhorar na próxima!";
-    else msg = "Uau, parabéns!";
-
-    msg += `<br> Você acertou ${Math.round(porcentagem * 100)}% das questões.`;
-
-    msgFinal.innerHTML = msg;
-    spanPontuacaoFinal.innerHTML = pontuacaoFinal;
+function enviarPontuacao() {
+    fetch("/pontuacao/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            idUsuario: sessionStorage.ID_USUARIO,
+            respostas: respostas,
+            quiz: listaAtual === listaDeQuestoes1 ? 1 :
+                  listaAtual === listaDeQuestoes2 ? 2 :
+                  listaAtual === listaDeQuestoes3 ? 3 : 4
+        })
+    })
+    .then(r => {
+        if (!r.ok) {
+            console.error("Erro ao registrar pontuação");
+        } else {
+            console.log("Pontuação registrada com sucesso");
+        }
+    })
+    .catch(e => console.error("Erro fetch:", e));
 }
 
-// REINICIAR
-function tentarNovamente() {
-    window.location.reload();
-}
+
+
 
 </script>
