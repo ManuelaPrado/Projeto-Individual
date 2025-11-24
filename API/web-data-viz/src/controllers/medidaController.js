@@ -3,9 +3,9 @@ var medidaModel = require("../models/medidaModel");
 
 
 function registrar(req, res) {
-    const {idUsuario, respostas, quiz } = req.body;
+    const {idusuario, respostas, quiz } = req.body;
 
-   if (!idUsuario) {
+   if (!idusuario) {
         return res.status(400).json({ erro: "ID do usuário não enviado." });
     }
 
@@ -13,7 +13,7 @@ function registrar(req, res) {
         return res.status(400).json({ erro: "Lista de respostas inválida." });
     }
 
-    pontuacaoModel.registrar(idUsuario, respostas, quiz)
+    pontuacaoModel.registrar(idusuario, respostas, quiz)
       .then(() => {
             res.status(200).send("Pontuação registrada com sucesso!");
         })

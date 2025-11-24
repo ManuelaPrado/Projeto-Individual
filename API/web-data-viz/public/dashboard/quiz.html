@@ -395,7 +395,6 @@ function avancar() {
             `;
          
  enviarPontuacao() 
-
         return;
     }
 
@@ -450,11 +449,11 @@ function checarResposta() {
 // FINALIZA O QUIZ
 
 function enviarPontuacao() {
-    fetch("/medida/registrar", {
+    fetch("/medidas/registrar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            idUsuario: sessionStorage.ID_USUARIO,
+            idusuario: sessionStorage.ID_USUARIO,
             respostas: respostas,
             quiz: listaAtual === listaDeQuestoes1 ? 1 :
                   listaAtual === listaDeQuestoes2 ? 2 :
@@ -470,8 +469,5 @@ function enviarPontuacao() {
     })
     .catch(e => console.error("Erro fetch:", e));
 }
-
-
-
 
 </script>

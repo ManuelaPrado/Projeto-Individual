@@ -1,33 +1,33 @@
 var database = require("../database/config");
 
+function registrar(idusuario, respostas, quiz) {
+    let instrucoes = [];
 
-function registrar(idUsuario, respostas, quiz) {
-     let instrucoes = [];
-
-
-       respostas.forEach(respostas => {
+    respostas.forEach(resposta => {
         instrucoes.push(`
             INSERT INTO pontuacao (id_usuario, acertou, quiz)
-            VALUES (${idUsuario}, ${respostas}, ${quiz});
+            VALUES (${idusuario}, ${resposta}, ${quiz});
         `);
     });
 
-        console.log("Executando inserts da pontuação:");
+    console.log("Executando inserts da pontuação:");
 
     return database.executar(instrucoes.join(" "));
 }
 
+function respostaPergunta(idusuario) {
 
-function respostaPergunta(idusuario, acertou) {
-
-    var instrucaoSql = `SELECT 
-    u.nome,
-    SUM(p.acertou) AS acertos,
-    COUNT(*) - SUM(p.acertou) AS erros,
-	count(*) as total
-FROM pontuacao p
-JOIN usuario u ON u.idusuario = p.id_usuario
-GROUP BY u.idusuario, u.nome;`;
+    var instrucaoSql = `
+        SELECT 
+            u.nome,
+            SUM(p.acertou) AS acertos,
+            COUNT(*) - SUM(p.acertou) AS erros,
+            COUNT(*) AS total
+        FROM pontuacao p
+        JOIN usuario u ON u.idusuario = p.id_usuario
+        WHERE p.id_usuario = ${idusuario}
+        GROUP BY u.idusuario, u.nome;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -36,12 +36,13 @@ GROUP BY u.idusuario, u.nome;`;
 function respostaEmTempoReal(idusuario) {
 
     var instrucaoSql = `
-select data_resposta as tempo
-from pontuacao p 
-join usuario u 
-on u.idusuario = p.id_usuario
-GROUP BY u.idusuario, data_resposta;
-   `;
+        SELECT 
+            p.data_resposta AS tempo
+        FROM pontuacao p 
+        JOIN usuario u ON u.idusuario = p.id_usuario
+        WHERE p.id_usuario = ${idusuario}
+        ORDER BY p.data_resposta;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -49,6 +50,6 @@ GROUP BY u.idusuario, data_resposta;
 
 module.exports = {
     respostaPergunta,
-    respostaEmTempoReal, 
+    respostaEmTempoReal,
     registrar
 }
