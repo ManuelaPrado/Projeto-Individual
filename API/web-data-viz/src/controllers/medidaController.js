@@ -3,17 +3,22 @@ var medidaModel = require("../models/medidaModel");
 
 
 function registrar(req, res) {
-    const {idusuario, respostas, quiz } = req.body;
+    var idusuario = req.body.idusuarioServer;
+    var respostas= req.body.respostaServer;
+    var quiz=req.body.quizServer;
+
+    console.log( {axidusuario:idusuario, axresposta:respostas,axquiz:quiz});
+    
 
    if (!idusuario) {
-        return res.status(400).json({ erro: "ID do usuário não enviado." });
+        return res.status(400).json({ erro: "ID do usuário não undefinied." });
     }
 
-    if (!Array.isArray(respostas) || respostas.length === 0) {
-        return res.status(400).json({ erro: "Lista de respostas inválida." });
+    if (! respostas || respostas.length === 0) {
+        return res.status(400).json({ erro: "Lista de respostas undefinied." });
     }
 
-    pontuacaoModel.registrar(idusuario, respostas, quiz)
+    medidaModel.registrar(idusuario, respostas, quiz)
       .then(() => {
             res.status(200).send("Pontuação registrada com sucesso!");
         })

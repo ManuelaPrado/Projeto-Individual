@@ -39,9 +39,9 @@
 
         </div>
     <div id="pontuacaoEJogo" style="width: 90%;">
-        <button id="btnQuiz1" onclick="iniciarQuiz1()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% 25% ;">Quiz: <br> Teporada 1 </button>
-             <button id="btnQuiz2" onclick="iniciarQuiz2()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% -20% ;">Quiz: <br> Teporada 2</button>
-                  <button id="btnQuiz3" onclick="iniciarQuiz3()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 5% 25% ;">Quiz: <br> Teporada 3</button>
+        <button id="btnQuiz1" onclick="iniciarQuiz1()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% 25% ;">Quiz: <br> Temporada 1 </button>
+             <button id="btnQuiz2" onclick="iniciarQuiz2()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% -20% ;">Quiz: <br> Temporada 2</button>
+                  <button id="btnQuiz3" onclick="iniciarQuiz3()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 5% 25% ;">Quiz: <br> Temporada 3</button>
           <button id="btnQuiz4" onclick="iniciarQuiz4()" style="background-color: #ff7043; width: 500px; height: 200px; font-size: 30px;margin: 5% -20% ;"> Quiz: <br> Temporada 4 <br> </button>
 
        
@@ -278,7 +278,7 @@ let certas = 0;
 let erradas = 0;
 let quantidadeDeQuestoes = 0;
 
-let respostas = [];
+let resposta = [];
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
@@ -307,7 +307,6 @@ function iniciarQuiz4() {
     iniciarQuiz();
 }
 
-// FUNÇÃO BASE PARA INICIAR QUALQUER QUIZ
 function iniciarQuiz() {
     numeroDaQuestaoAtual = 0;
     pontuacaoFinal = 0;
@@ -351,17 +350,23 @@ function preencherHTMLcomQuestaoAtual(index) {
 function submeter() {
     const options = document.getElementsByName("option");
 
-    const checked = [...options].some(op => op.checked);
-
-    if (!checked) return alert("Selecione uma opção!");
-
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true
+                break
+            }
+        }
+        if (!hasChecked) {
+            alert("Não há alternativas escolhidas. Escolha uma opção.")
+        } else {
     btnSubmeter.disabled = true;
     btnProx.disabled = false;
-
+        
     habilitarAlternativas(false);
 
     checarResposta();
-
+        }
 
 }
 
@@ -393,8 +398,8 @@ function avancar() {
                     </div>
                 </div>
             `;
-         
- enviarPontuacao() 
+         confimarQuiz()
+ 
         return;
     }
 
@@ -431,16 +436,16 @@ function checarResposta() {
         if (option.checked && option.value !== correta) {
             document.getElementById(labelID).classList.add("text-danger-with-bg");
             erradas++;
-            respostas.push(0)
+            resposta.push(0)
         }
 
         if (option.checked && option.value === correta) {
             certas++
-            respostas.push(1)
+            resposta.push(1)
             pontuacaoFinal++;
         }
 
-        console.log(respostas);
+        console.log(resposta);
         
     });
 }
@@ -448,20 +453,36 @@ function checarResposta() {
 
 // FINALIZA O QUIZ
 
-function enviarPontuacao() {
-    fetch("/medidas/registrar", {
+function confimarQuiz()
+{
+
+    if (listaAtual[0] == 1) {
+        cadastrarQuiz1()
+    }
+    else if (listaAtual[0]==2) {
+        cadastrarQuiz2()
+    }
+    else if (listaAtual[0]==3) {
+        cadastrarQuiz3()
+    }
+    else{
+        cadastrarQuiz4()
+    }
+
+}
+
+function cadastrarQuiz1(){
+       fetch("/medidas/registrar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            idusuario: sessionStorage.ID_USUARIO,
-            respostas: respostas,
-            quiz: listaAtual === listaDeQuestoes1 ? 1 :
-                  listaAtual === listaDeQuestoes2 ? 2 :
-                  listaAtual === listaDeQuestoes3 ? 3 : 4
+            idusuarioServer: sessionStorage.ID_USUARIO,
+            respostaServer: resposta,
+            quizServer: listaAtual[0]
         })
     })
-    .then(r => {
-        if (!r.ok) {
+    .then(resposta => {
+        if (!resposta.ok) {
             console.error("Erro ao registrar pontuação");
         } else {
             console.log("Pontuação registrada com sucesso");
@@ -469,5 +490,71 @@ function enviarPontuacao() {
     })
     .catch(e => console.error("Erro fetch:", e));
 }
+
+
+
+function cadastrarQuiz2(){
+       fetch("/medidas/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            idusuarioServer: sessionStorage.ID_USUARIO,
+            respostaServer: resposta,
+            quizServer: listaAtual[0]
+        })
+    })
+    .then(resposta => {
+        if (!resposta.ok) {
+            console.error("Erro ao registrar pontuação");
+        } else {
+            console.log("Pontuação registrada com sucesso");
+        }
+    })
+    .catch(e => console.error("Erro fetch:", e));
+}
+
+
+function cadastrarQuiz3(){
+       fetch("/medidas/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            idusuarioServer: sessionStorage.ID_USUARIO,
+            respostaServer: resposta,
+            quizServer: listaAtual[0]
+        })
+    })
+    .then(resposta => {
+        if (!resposta.ok) {
+            console.error("Erro ao registrar pontuação");
+        } else {
+            console.log("Pontuação registrada com sucesso");
+        }
+    })
+    .catch(e => console.error("Erro fetch:", e));
+}
+
+
+function cadastrarQuiz4(){
+       fetch("/medidas/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            idusuarioServer: sessionStorage.ID_USUARIO,
+            respostaServer: resposta,
+            quizServer: listaAtual[0]
+        })
+    })
+    .then(resposta => {
+        if (!resposta.ok) {
+            console.error("Erro ao registrar pontuação");
+        } else {
+            console.log("Pontuação registrada com sucesso");
+        }
+    })
+    .catch(e => console.error("Erro fetch:", e));
+}
+
+
 
 </script>

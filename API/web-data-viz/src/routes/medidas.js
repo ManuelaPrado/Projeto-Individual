@@ -5,7 +5,7 @@ var router = express.Router();
 var medidaController = require("../controllers/medidaController");
 
 
-router.post("/registrar/:idusuario", function (req, res) {
+router.post("/registrar", function (req, res) {
  medidaController.registrar(req, res); 
 });
 

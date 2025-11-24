@@ -1,18 +1,14 @@
 var database = require("../database/config");
 
 function registrar(idusuario, respostas, quiz) {
-    let instrucoes = [];
-
-    respostas.forEach(resposta => {
-        instrucoes.push(`
+    let instrucoesSql = `
             INSERT INTO pontuacao (id_usuario, acertou, quiz)
-            VALUES (${idusuario}, ${resposta}, ${quiz});
-        `);
-    });
+            VALUES (${idusuario}, ${respostas}, ${quiz});
+        `;
 
     console.log("Executando inserts da pontuação:");
 
-    return database.executar(instrucoes.join(" "));
+    return database.executar(instrucoesSql.join(" "));
 }
 
 function respostaPergunta(idusuario) {
