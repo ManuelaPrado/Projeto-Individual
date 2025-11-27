@@ -9,12 +9,12 @@ router.post("/registrar", function (req, res) {
  medidaController.registrar(req, res); 
 });
 
-router.get("/ultimas/:idusuario", function (req, res) {
-    medidaController.respostaPergunta(req, res);
+router.get("/Cards/:idUsuario", function (req, res) {
+    medidaController.MedidasKpi(req, res);
 });
 
-router.get("/tempo-real/:idusuario", function (req, res) {
-    medidaController.respostaEmTempoReal(req, res);
-})
+router.get("/grafico/", function (req, res) {
+    medidaController.MedidasGrafico(req, res);
+});
 
 module.exports = router;
