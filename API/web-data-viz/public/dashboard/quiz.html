@@ -39,12 +39,12 @@
            </a> </div>
 
         </div>
-    <div id="pontuacaoEJogo" style="width: 90%;">
-        <button id="btnQuiz1" onclick="iniciarQuiz1()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% 25% ;">Quiz: <br> Temporada 1 </button>
-             <button id="btnQuiz2" onclick="iniciarQuiz2()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% -20% ;">Quiz: <br> Temporada 2</button>
+    <div id="pontuacaoEJogo">
+        <button id="btnQuiz1" onclick="iniciarQuiz()" style="background-color: #ff7043; height: 300px; font-size: 30px; margin: 5% 47% ;">Quiz: <br> INICIAR TENTATIVA </button>
+        <!--  <button id="btnQuiz2" onclick="iniciarQuiz2()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 1% -20% ;">Quiz: <br> Temporada 2</button>
                   <button id="btnQuiz3" onclick="iniciarQuiz3()" style="background-color: #ff7043;width: 500px; height: 200px; font-size: 30px; margin: 5% 25% ;">Quiz: <br> Temporada 3</button>
           <button id="btnQuiz4" onclick="iniciarQuiz4()" style="background-color: #ff7043; width: 500px; height: 200px; font-size: 30px;margin: 5% -20% ;"> Quiz: <br> Temporada 4 <br> </button>
-
+-->
        
         <div id="jogo" class="width-fit-content flex-colunar border-secondary ">
 
@@ -96,7 +96,53 @@
 </html>
 <script>
    // LISTAS DE QUESTÕES
-const listaDeQuestoes1 = [
+
+   const listaDeQuestoes = [
+    {
+ pergunta: "Qual é o nome do time principal da história?",
+        alternativaA: "Nekoma",
+        alternativaB: "Aoba Johsa",
+        alternativaC: "Karasuno",
+        alternativaD: "Shiratorizawa",
+        alternativaCorreta: "alternativaC"
+    },
+
+    {
+        pergunta: "Qual habilidade Hinata desenvolve no acampamento?",
+        alternativaA: "Percepção de bloqueio",
+        alternativaB: "Levantamentos longos",
+        alternativaC: "Defender melhor como líbero",
+        alternativaD: "Saque flutuante",
+        alternativaCorreta: "alternativaA"
+    },
+     {
+        pergunta: "Quem lidera o Karasuno emocionalmente durante a partida contra a Shiratorizawa?",
+        alternativaA: "Daichi",
+        alternativaB: "Hinata",
+        alternativaC: "Suki",
+        alternativaD: "Tanaka",
+        alternativaCorreta: "alternativaA"
+    },
+     {
+        pergunta: "O que Inarizaki faz para desestabilizar o Karasuno durante o jogo?",
+        alternativaA: "Grita insultos",
+        alternativaB: "Finge lesões",
+        alternativaC: "Usa técnicas ilegaisa",
+        alternativaD: "Manipula o ritmo da torcidaumu",
+        alternativaCorreta: "alternativaD"
+    },
+     {
+        pergunta: "O que Kageyama treina no acampamento da Seleção Juvenil?",
+        alternativaA: "Distribuição variada de levantamentos",
+        alternativaB: "Saque flutuante",
+        alternativaC: "Velocidade de deslocamento",
+        alternativaD: "Leitura de bloqueio",
+        alternativaCorreta: "alternativaA"
+    },
+   ]
+
+
+/*   const listaDeQuestoes1 = [
     {
         pergunta: "Qual é o nome do time principal da história?",
         alternativaA: "Nekoma",
@@ -269,62 +315,66 @@ const listaDeQuestoes4 = [
         alternativaD: "Sakusa",
         alternativaCorreta: "alternativaD"
     }
-];
+];*/
 
 // VARIÁVEIS GLOBAIS
+
+ b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 let listaAtual = [];
 let numeroDaQuestaoAtual = 0;
 let pontuacaoFinal = 0;
+let tentativas=0
+let tentativaIncorreta=0
 let certas = 0;
 let erradas = 0;
-let quantidadeDeQuestoes = 0;
+let quantidadeDeQuestoes = listaDeQuestoes.length;
+// let numeroQuiz = 0;
 
 let resposta = [];
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-// ESCONDER ÁREA DO QUIZ AO CARREGAR
+
+
+   
+
+
 function onloadEsconder() {
     jogo.style.display = "none";
 }
-
+/*
 // INICIAR QUIZ 1
 function iniciarQuiz1() {
     listaAtual = listaDeQuestoes1;
+    numeroQuiz=1
     iniciarQuiz();
 }
 
 // INICIAR QUIZ 2
 function iniciarQuiz2() {
+    numeroQuiz=2
     listaAtual = listaDeQuestoes2;
     iniciarQuiz();
 }
 function iniciarQuiz3() {
+    numeroQuiz=3
     listaAtual = listaDeQuestoes3;
     iniciarQuiz();
 }
 function iniciarQuiz4() {
+    numeroQuiz=4
     listaAtual = listaDeQuestoes4;
     iniciarQuiz();
-}
+}*/
 
 function iniciarQuiz() {
-    numeroDaQuestaoAtual = 0;
-    pontuacaoFinal = 0;
-    certas = 0;
-    erradas = 0;
+    tentativas++
 
-    quantidadeDeQuestoes = listaAtual.length;
-
-    jogo.style.display = "flex";
-
+    document.getElementById('jogo').style.display = "flex"
     document.getElementById("btnQuiz1").style.display = "none";
-    document.getElementById("btnQuiz2").style.display = "none";
+ /*   document.getElementById("btnQuiz2").style.display = "none";
+    document.getElementById("btnQuiz3").style.display = "none";
+    document.getElementById("btnQuiz4").style.display = "none";*/
 
-      document.getElementById("btnQuiz3").style.display = "none";
-    document.getElementById("btnQuiz4").style.display = "none";
-
-    qtdQuestoes.innerHTML = quantidadeDeQuestoes;
 
     preencherHTMLcomQuestaoAtual(0);
 
@@ -332,15 +382,13 @@ function iniciarQuiz() {
     btnProx.disabled = true;
 }
 
-// CARREGAR PERGUNTA NA TELA
+
 function preencherHTMLcomQuestaoAtual(index) {
     habilitarAlternativas(true);
-
-    const questaoAtual = listaAtual[index];
-
+    const questaoAtual = listaDeQuestoes[index];
+    numeroDaQuestaoAtual = index  
     spanNumeroDaQuestaoAtual.innerHTML = index + 1;
     spanQuestaoExibida.innerHTML = questaoAtual.pergunta;
-
     labelOpcaoUm.innerHTML = questaoAtual.alternativaA;
     labelOpcaoDois.innerHTML = questaoAtual.alternativaB;
     labelOpcaoTres.innerHTML = questaoAtual.alternativaC;
@@ -372,24 +420,27 @@ function submeter() {
 }
 
 // BLOQUEAR/DESBLOQUEAR RADIO
-function habilitarAlternativas(enable) {
-    primeiraOpcao.disabled = !enable;
-    segundaOpcao.disabled = !enable;
-    terceiraOpcao.disabled = !enable;
-    quartaOpcao.disabled = !enable;
-}
+ function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+
+    }
 
 // AVANÇAR PARA PRÓXIMA
 function avancar() {
     btnProx.disabled = true;
-    btnSubmeter.disabled = false;
-    numeroDaQuestaoAtual++
+    btnSubmeter.disabled = false
+       limparCoresBackgroundOpcoes();   
     desmarcarRadioButtons();
-    limparCoresBackgroundOpcoes();
-
-    if (numeroDaQuestaoAtual >= quantidadeDeQuestoes) {
-       
-      
+   
+if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        
+        } else {
            jogo.innerHTML = `
                 <div id="botoe" class="flex-colunar padding-8">
                     <h2>Questionário Concluído</h2>
@@ -400,65 +451,98 @@ function avancar() {
                 </div>
             `;
          confimarQuiz()
+       
  
-        return;
     }
-
-    preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
    
 }
 
-// DESMARCAR
-function desmarcarRadioButtons() {
-    document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
+function confimarQuiz(){
+ fetch("/medidas/registrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                 idusuarioServer: sessionStorage.ID_USUARIO,
+               // respostaServer: resposta[0],
+                //quizServer: numeroQuiz,
+                pontuacaoServer: pontuacaoFinal,
+                tentativaServer: tentativas,
+               
+            }),
+        })
+     .then(res => {
+        if(res.ok){
+            console.log("Pontuação salva!");
+        } else {
+            console.warn("Erro no insert:", res.status);
+        }
+    })
+    .catch(err => console.error("ERRO FETCH:", err));
+
+    
+            
 }
 
-// LIMPAR CORES
-function limparCoresBackgroundOpcoes() {
-    document.querySelectorAll("label").forEach(l => {
-        l.classList.remove("text-danger-with-bg", "text-success-with-bg");
-    });
-}
 
 // CHECAR RESPOSTA
 function checarResposta() {
-    const questaoAtual = listaAtual[numeroDaQuestaoAtual];
-    const correta = questaoAtual.alternativaCorreta;
+    const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
 
-    const options = document.getElementsByName("option");
+        const options = document.getElementsByName("option"); // recupera alternativas no html
 
-    options.forEach(option => {
-        const labelID = option.labels[0].id;
+        let alternativaCorreta = null // variável para armazenar a alternativa correta
 
-        if (option.value === correta) {
-            document.getElementById(labelID).classList.add("text-success-with-bg");
-        }
+          options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) {
+                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+                alternativaCorreta = option.labels[0].id
+            }
+        })
 
-        if (option.checked && option.value !== correta) {
-            document.getElementById(labelID).classList.add("text-danger-with-bg");
-            erradas++;
-            resposta.push(0)
-        }
+     options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                pontuacaoFinal++
+                certas++
+                numeroDaQuestaoAtual++
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+                const wrongLabelId = option.labels[0].id
 
-        if (option.checked && option.value === correta) {
-            certas++
-            resposta.push(1)
-            pontuacaoFinal++;
-        }
+                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                tentativaIncorreta++
+                erradas++
+                numeroDaQuestaoAtual++
+            }
 
-        console.log(resposta);
-        
     });
 }
 
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
 
 // FINALIZA O QUIZ
-
+/*
 function confimarQuiz()
 {
 
     if (listaAtual[0] == 1) {
-        cadastrarQuiz1()
+        cadastrarQuiz()
     }
     else if (listaAtual[0]==2) {
         cadastrarQuiz2()
@@ -472,14 +556,18 @@ function confimarQuiz()
 
 }
 
-function cadastrarQuiz1(){
+
+
+
+
+function cadastrarQuiz(){
        fetch("/medidas/registrar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: resposta,
-            quizServer: listaAtual[0]
+            respostaServer: certas,
+            quizServer: numeroQuiz
         })
     })
     .then(resposta => {
@@ -500,8 +588,8 @@ function cadastrarQuiz2(){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: resposta,
-            quizServer: listaAtual[0]
+            respostaServer: certas,
+            quizServer: numeroQuiz
         })
     })
     .then(resposta => {
@@ -521,8 +609,8 @@ function cadastrarQuiz3(){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: resposta,
-            quizServer: listaAtual[0]
+            respostaServer: certas,
+            quizServer: numeroQuiz
         })
     })
     .then(resposta => {
@@ -542,8 +630,8 @@ function cadastrarQuiz4(){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: resposta,
-            quizServer: listaAtual[0]
+            respostaServer: certas,
+            quizServer: numeroQuiz 
         })
     })
     .then(resposta => {
@@ -556,6 +644,6 @@ function cadastrarQuiz4(){
     .catch(e => console.error("Erro fetch:", e));
 }
 
-
+*/
 
 </script>

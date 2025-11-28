@@ -207,7 +207,7 @@ html, body {
   background-color: var(--accent);
   border: none;
   padding: 28px;
-  min-width: 260px;
+  min-width: 350px;
   min-height: 140px;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(0,0,0,0.6);

@@ -4,19 +4,20 @@ var medidaModel = require("../models/medidaModel");
 
 function registrar(req, res) {
     var idusuario = req.body.idusuarioServer;
-    var respostas= req.body.respostaServer;
-    var quiz=req.body.quizServer;
+    //var respostas= req.body.respostaServer;
+    var pontuacao=req.body.pontuacaoServer
+    var tentativa=req.body.tentativaServer
     
 
     if (idusuario == undefined) {
         res.status(400).send("Seu id está undefined!");
-    } else if (respostas == undefined) {
+    } else if (pontuacao == undefined) {
         res.status(400).send("Seu pontuação está undefined!");
-    } else if (quiz == undefined) {
+    } else if (tentativa == undefined) {
         res.status(400).send("Sua tentativa está undefined!");
     }
     else{
-    medidaModel.registrar(idusuario, respostas, quiz)
+    medidaModel.registrar (pontuacao, tentativa , idusuario)
       .then(() => {
             res.status(200).send("Pontuação registrada com sucesso!");
         })
