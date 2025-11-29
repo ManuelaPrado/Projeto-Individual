@@ -17,10 +17,10 @@ function MedidasKpi(idusuario) {
         SELECT 
   pontuacao,
     ROUND((pontuacao / 5) * 100, 2) AS porcentagem_acertos,
-    tentativas
+    (SELECT COUNT(*) FROM resposta WHERE id_usuario = ${idusuario}) AS quantidade_tentativas
 FROM pontuacao
 WHERE id_usuario = ${idusuario}
-group by tentativas, portuacao 
+group by tentativas, pontuacao 
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -31,8 +31,8 @@ function  MedidasGrafico(idusuario) {
 
     var instrucaoSql = `
                SELECT 
-  pontuacao,
-    pontuacao - 5 as Repostas_erradas,
+  pontuacao as Respostas_certa,
+   5 - pontuacao as Repostas_erradas,
     tentativas
 FROM pontuacao
 WHERE id_usuario = ${idusuario}

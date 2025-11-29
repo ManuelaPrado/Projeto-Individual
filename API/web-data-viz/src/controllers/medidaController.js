@@ -9,14 +9,14 @@ function registrar(req, res) {
     
 
  
-    if (id == undefined) {
+    if (idusuario == undefined) {
         res.status(400).send("Seu id está undefined!");
     } else if (pontuacao == undefined) {
         res.status(400).send("Seu pontuação está undefined!");
     } else if (tentativa == undefined) {
         res.status(400).send("Sua tentativa está undefined!");
     } else {
-        madidaModel.registrar(pontuacao, tentativa, idusuario)
+        medidaModel.registrar(pontuacao, tentativa, idusuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -35,15 +35,13 @@ function registrar(req, res) {
 
 function MedidasKpi(req, res) {
 
-    const tentativa = 2;
-
+    const limite_linhas= 5;
 
     var idusuario = req.params.idusuario;
-    var pontuacao= req.params.pontuacao
 
-    console.log(`Recuperando as ultimas ${tentativa} medidas`);
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.MedidasKpi(idusuario, pontuacao, tentativa).then(function (resultado) {
+    medidaModel.MedidasKpi(idusuario, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -56,12 +54,9 @@ function MedidasKpi(req, res) {
     });
 }
 
-
 function MedidasGrafico(req, res) {
 
-    var idusuario = req.params.idusuario;
-
-    console.log(`Recuperando medidas em tempo real`);
+   var idusuario = req.params.idusuario;
 
     medidaModel.MedidasGrafico(idusuario).then(function (resultado) {
            if (resultado.length > 0) {

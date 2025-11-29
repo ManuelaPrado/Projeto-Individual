@@ -9,11 +9,11 @@ router.post("/registrar", function (req, res) {
  medidaController.registrar(req, res); 
 });
 
-router.get("/Cards/:idUsuario", function (req, res) {
+router.get("/cards/:idusuario", function (req, res) {
     medidaController.MedidasKpi(req, res);
 });
 
-router.get("/grafico/", function (req, res) {
+router.get("/grafico/:idusuario", function (req, res) {
     medidaController.MedidasGrafico(req, res);
 });
 
