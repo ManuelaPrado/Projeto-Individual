@@ -128,7 +128,7 @@
         alternativaA: "Grita insultos",
         alternativaB: "Finge lesões",
         alternativaC: "Usa técnicas ilegaisa",
-        alternativaD: "Manipula o ritmo da torcidaumu",
+        alternativaD: "Manipula o ritmo da torcida",
         alternativaCorreta: "alternativaD"
     },
      {
@@ -141,6 +141,7 @@
     },
    ]
 
+   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     // variáveis globais    
     var idUsuario = sessionStorage.ID_USUARIO
@@ -229,7 +230,7 @@
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else {
             submete.innerHTML=''
-            prox.innerHTML = 'Coletando Resultados...'
+            prox.innerHTML = 'Calculando Resultado...'
             CadastrarResposta()
           
         }

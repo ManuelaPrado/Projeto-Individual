@@ -11,7 +11,7 @@ function registrar( pontuacao, tentativa , idusuario) {
     return database.executar(instrucoesSql);
 }
 
-function MedidasKpi(idusuario) {
+function MedidasKpi(idusuario, limite_linhas) {
 
     var instrucaoSql = `
         SELECT 
@@ -20,6 +20,8 @@ function MedidasKpi(idusuario) {
     (SELECT COUNT(*) FROM pontuacao WHERE id_usuario = ${idusuario}) AS quantidade_tentativas
 FROM pontuacao
 WHERE id_usuario = ${idusuario}
+order by id_pontuacao desc
+limit ${limite_linhas}
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

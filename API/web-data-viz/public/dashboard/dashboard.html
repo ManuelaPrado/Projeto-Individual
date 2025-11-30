@@ -75,7 +75,7 @@
      5% -1% 55%; ">Grafico</h1>
     <div style="display: flex;">
         <div style="width: 87%; justify-content: center; background-color: white; margin: 2% 5% 0% 25%; border-radius: 40px; ">
-            <canvas id="graf" style="height: 250%;"></canvas>
+            <canvas id="graf" style="height: 300%;"></canvas>
         </div>
        
     </div>
@@ -146,11 +146,10 @@ function obterDadosGrafico() {
 
 function plotarKpi(resposta) {
 
-    const resp=resposta[0]
 
-    cardAcert.innerHTML =resp.Respostas_certa ;
-    ax_porcent.innerHTML =`${resp.porcentagem_acertos} %`;
-    ax_tent.innerHTML = resp.quantidade_tentativas;
+    cardAcert.innerHTML =resposta[0].Respostas_certa ;
+    ax_porcent.innerHTML =`${resposta[0].porcentagem_acertos}%`;
+    ax_tent.innerHTML = resposta[0].quantidade_tentativas;
 
     console.log("KPIs recebidas da API:", resposta);
 }
