@@ -216,9 +216,10 @@ function plotarGrafico(resposta) {
    
 
     // Gerando novo gráfico
-    window.graficoAtual = new Chart(canvasGraf, config);
-
-    console.log("Gráfico gerado!");
+  let myChart = new Chart(
+            document.getElementById(`graf`),
+            config
+        );
 }
 
 
